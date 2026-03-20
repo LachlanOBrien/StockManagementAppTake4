@@ -13,7 +13,7 @@ namespace StockManagementApp.Models
         public int SupplierID { get; set; }
         [Display(Name = "Order Name")]
         public string OrderName { get; set; }
-        [Display(Name = "QUantity Ordered")]
+        [Display(Name = "Quantity Ordered")]
         public int QuantityOrdered { get; set; }
         [Display(Name = "Estimated Time Of Arrival")]
         [DataType(DataType.Date)]

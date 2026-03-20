@@ -77,9 +77,9 @@ namespace StockManagementApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             var statuses = Enum.GetValues(typeof(ItemStatus))
-                .Cast<ItemStatus>()
-                .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
-                .ToList();
+                             .Cast<ItemStatus>()
+                             .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
+                             .ToList();
             ViewBag.StatusList = statuses;
             return View(order);
         }
@@ -97,6 +97,11 @@ namespace StockManagementApp.Controllers
             {
                 return NotFound();
             }
+            var statuses = Enum.GetValues(typeof(ItemStatus))
+                             .Cast<ItemStatus>()
+                             .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
+                             .ToList();
+            ViewBag.StatusList = statuses;
             return View(order);
         }
 
@@ -129,9 +134,16 @@ namespace StockManagementApp.Controllers
                     {
                         throw;
                     }
+
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+            var statuses = Enum.GetValues(typeof(ItemStatus))
+                 .Cast<ItemStatus>()
+                 .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
+                 .ToList();
+            ViewBag.StatusList = statuses;
             return View(order);
         }
 
