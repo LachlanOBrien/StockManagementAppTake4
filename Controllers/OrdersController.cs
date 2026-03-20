@@ -55,6 +55,11 @@ namespace StockManagementApp.Controllers
             //    new SelectListItem { Value = "Delivered", Text = "Delivered" },
             //    new SelectListItem { Value = "Cancelled", Text = "Cancelled" }
             //}, "Value", "Text");
+            var statuses = Enum.GetValues(typeof(ItemStatus))
+                            .Cast<ItemStatus>()
+                            .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
+                            .ToList();
+            ViewBag.StatusList = statuses;
             return View();
         }
 
@@ -71,7 +76,11 @@ namespace StockManagementApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["ItemStatus"] = new SelectList(Enum.GetValues(typeof(ItemStatus)));
+            var statuses = Enum.GetValues(typeof(ItemStatus))
+                .Cast<ItemStatus>()
+                .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
+                .ToList();
+            ViewBag.StatusList = statuses;
             return View(order);
         }
 
