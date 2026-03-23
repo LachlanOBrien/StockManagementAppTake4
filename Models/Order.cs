@@ -17,7 +17,7 @@ namespace StockManagementApp.Models
         public int QuantityOrdered { get; set; }
         [Display(Name = "Estimated Time Of Arrival")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:YYYY-MM-DD}", ApplyFormatInEditMode = true)]
         public DateTime EstimatedTimeOfArrival { get; set; }
         public ItemStatus Status { get; set; }
 
