@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace StockManagementApp.Models
 {
-    public class Order
+    public class Order : IValidatableObject
     { //[Required(ErrorMessage="This Field cannot be empty")]
         public int OrderID { get; set; }
         
@@ -34,7 +35,7 @@ namespace StockManagementApp.Models
         public int QuantityOrdered { get; set; }
         
 
-        public DateTime TimeAdd100()
+        public DateTime TimeAdd100Years()
         {
             DateTime maxDate = DateTime.Now;
             DateTime maxDateAdd100 = maxDate.AddYears(100);
@@ -46,10 +47,12 @@ namespace StockManagementApp.Models
             DateTime currentDate = DateTime.Now;
             return currentDate;
         }
-        
+      
         [Display(Name = "Estimated Time Of Arrival")]
         [Required(ErrorMessage = "This Field cannot be empty")]
-        // [Range(typeof(DateTime),  "2030-12-31", ErrorMessage = "Please enter a valid date between 2024 and 2030.")]
+        //[Range(typeof(DateTime),  "2030-12-31", ErrorMessage = "Please enter a valid date between 2024 and 2030
+        //[Range(typeof(DateTime), "2024-01-01", "2030-12-31", ErrorMessage = "Please enter a valid date between 2024 and 2030.")]
+        [Range(typeof(DateTime), "2024-01-01", "2030-12-31", ErrorMessage = "Please enter a valid date between 2024 and 2030.")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EstimatedTimeOfArrival { get; set; }
@@ -63,6 +66,16 @@ namespace StockManagementApp.Models
             Shipped,
             Delivered,
             Cancelled
+        }
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var min = new DateTime(2024, 1, 1);
+            var max = new DateTime(2030, 12, 31);
+
+            if (EstimatedTimeOfArrival < min || EstimatedTimeOfArrival > max)
+            {
+                yield return new ValidationResult("Please enter a valid date between 2024 and 2030.", new[] { nameof(EstimatedTimeOfArrival) });
+            }
         }
     }
 }
