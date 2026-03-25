@@ -25,7 +25,7 @@ namespace StockManagementApp.Models
         [Display(Name = "Order Name")]
         [Required(ErrorMessage = "This Field cannot be empty")]
         [RegularExpression(@"^[a-zA-Z0-9\s,'\-\/\.#]+$", ErrorMessage = "Please enter a valid address.")]
-        [StringLength(100, MinimumLength = 5, ErrorMessage = "Address must be 5–100 characters.")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "Order Name must be 5–100 characters.")]
         public string OrderName { get; set; }
         
 
