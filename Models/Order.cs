@@ -34,25 +34,9 @@ namespace StockManagementApp.Models
         [Range(1, 10000, ErrorMessage = "Your Order Quantity must be between 1 and 10,000.")]
         public int QuantityOrdered { get; set; }
         
-
-        public DateTime TimeAdd100Years()
-        {
-            DateTime maxDate = DateTime.Now;
-            DateTime maxDateAdd100 = maxDate.AddYears(100);
-
-            return maxDateAdd100;
-        }
-        public DateTime CurrentTime()
-        {
-            DateTime currentDate = DateTime.Now;
-            return currentDate;
-        }
       
         [Display(Name = "Estimated Time Of Arrival")]
         [Required(ErrorMessage = "This Field cannot be empty")]
-        //[Range(typeof(DateTime),  "2030-12-31", ErrorMessage = "Please enter a valid date between 2024 and 2030
-        //[Range(typeof(DateTime), "2024-01-01", "2030-12-31", ErrorMessage = "Please enter a valid date between 2024 and 2030.")]
-        [Range(typeof(DateTime), "2024-01-01", "2030-12-31", ErrorMessage = "Please enter a valid date between 2024 and 2030.")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EstimatedTimeOfArrival { get; set; }
@@ -69,12 +53,22 @@ namespace StockManagementApp.Models
         }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            var min = new DateTime(2024, 1, 1);
-            var max = new DateTime(2030, 12, 31);
-
-            if (EstimatedTimeOfArrival < min || EstimatedTimeOfArrival > max)
+            if (EstimatedTimeOfArrival <= DateTime.Now)
             {
-                yield return new ValidationResult("Please enter a valid date between 2024 and 2030.", new[] { nameof(EstimatedTimeOfArrival) });
+                yield return new ValidationResult(
+                    "Estimated Time Of Arrival cannot be in the past.",
+                    new[] { nameof(EstimatedTimeOfArrival) }
+                );
+            }
+            else
+            {
+                if (EstimatedTimeOfArrival >= DateTime.Now.AddYears(100))
+                {
+                    yield return new ValidationResult(
+                                       "Estimated Time Of Arrival cannot be Greater than 100 Years from now.",
+                                       new[] { nameof(EstimatedTimeOfArrival) }
+                                   );
+                }
             }
         }
     }

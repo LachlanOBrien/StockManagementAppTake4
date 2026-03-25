@@ -40,7 +40,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="EstimatedTimeOfArrival" class="control-label"></label>
-                <input asp-for="EstimatedTimeOfArrival" class="form-control" />
+              @*<input asp-for="EstimatedTimeOfArrival" class="form-control" /> *@
+                <input asp-for="EstimatedTimeOfArrival" type="date" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="EstimatedTimeOfArrival" class="text-danger"></span>
             </div>
             <div class="form-group">
