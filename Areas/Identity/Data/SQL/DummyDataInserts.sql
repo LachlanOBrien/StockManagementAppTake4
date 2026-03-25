@@ -39,16 +39,16 @@ VALUES
 
 INSERT INTO [Order] (ItemID, LocationID, SupplierID, OrderName, QuantityOrdered, EstimatedTimeOfArrival, Status)
 VALUES
-(1, 3, 5, 'Restock Toothbrushes', 100, '2026-04-01',3),
-(2, 7, 2, 'Floss Bulk Order', 200, '2026-04-03',3),
-(3, 1, 8, 'Mouthwash Shipment', 150, '2026-04-02',3),
-(4, 6, 4, 'Toothpaste Refill', 120, '2026-04-05',3),
-(5, 2, 9, 'Glove Supply Order', 300, '2026-04-04',3),
-(6, 9, 1, 'Mask Restock', 250, '2026-04-06',3),
-(7, 4, 7, 'Sanitizer Delivery', 180, '2026-04-07',3),
-(8, 8, 3, 'Cotton Rolls Order', 220, '2026-04-08',3),
-(9, 5, 6, 'Syringes Batch', 140, '2026-04-09',3),
-(10, 10, 10, 'Wipes Replenishment', 160, '2026-04-10',3);
+(1, 3, 5, 'Restock Toothbrushes', 100, '2026-04-01',0),
+(2, 7, 2, 'Floss Bulk Order', 200, '2026-04-03',0),
+(3, 1, 8, 'Mouthwash Shipment', 150, '2026-04-02',0),
+(4, 6, 4, 'Toothpaste Refill', 120, '2026-04-05',0),
+(5, 2, 9, 'Glove Supply Order', 300, '2026-04-04',0),
+(6, 9, 1, 'Mask Restock', 250, '2026-04-06',0),
+(7, 4, 7, 'Sanitizer Delivery', 180, '2026-04-07',0),
+(8, 8, 3, 'Cotton Rolls Order', 220, '2026-04-08',0),
+(9, 5, 6, 'Syringes Batch', 140, '2026-04-09',0),
+(10, 10, 10, 'Wipes Replenishment', 160, '2026-04-10',0);
 
 INSERT INTO Supplier (SupplierName, Email, PhoneNumber, Address)
 VALUES

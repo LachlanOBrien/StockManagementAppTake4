@@ -1,0 +1,7 @@
+
+DELETE FROM ItemLocation;
+DELETE FROM [Order];
+
+DELETE FROM Item;
+DELETE FROM Supplier;
+DELETE FROM Location;
