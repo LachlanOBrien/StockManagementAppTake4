@@ -19,8 +19,7 @@ namespace StockManagementApp.Models
         
         
         [Display(Name = "Phone Number")]
-        [DataType(DataType.PhoneNumber), MaxLength(15)]
-        [RegularExpression(@"^(\+64\s?\d{1,2}\s?\d{3,4}\s?\d{3,4}|0\d{1,2}\s?\d{3,4}\s?\d{3,4})$", ErrorMessage = "Please enter a valid New Zealand phone number (e.g., +64 21 234 5678 or 021 234 5678).")]
+        [RegularExpression(@"^(\d{1,2}\s?\d{3,4}\s?\d{3,4})$", ErrorMessage = "Please enter a valid New Zealand phone number (e.g. 021 234 5678).")]
         [Required(ErrorMessage = "This Field cannot be empty")]
         public int PhoneNumber { get; set; }
         
