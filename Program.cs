@@ -35,3 +35,12 @@ app.MapControllerRoute(
 
 
 app.Run();
+/*
+    - to do list
+    add the sql inserts into the db initalizer
+    add comments throught the models explaining the validation
+    do the test cases
+    do the relevant implications
+    update the class diagram to have the var names
+    do the use case diagram and flowchart
+*/
