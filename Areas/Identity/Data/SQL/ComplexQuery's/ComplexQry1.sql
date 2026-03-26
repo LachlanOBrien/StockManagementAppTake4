@@ -1,0 +1,2 @@
+SELECT COUNT(ItemID) as ITEMCOUNT  
+FROM Item
