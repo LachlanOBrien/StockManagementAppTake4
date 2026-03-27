@@ -49,12 +49,3 @@ app.MapControllerRoute(
 
 
 app.Run();
-/*
-    - to do list
-    add the sql inserts into the db initalizer -- half done just need to verify-- done
-    add comments throught the models explaining the validation -- done
-    do the test cases
-    do the relevant implications -- done 
-    update the class diagram to have the var names -- done
-    do the use case diagram and flowchart
-*/
