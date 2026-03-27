@@ -12,6 +12,20 @@ builder.Services.AddDefaultIdentity<StockManagementAppUser>(options => options.S
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<StockManagementAppContext>();
+        DbInitializer.Initialize(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred creating the DB.");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -37,10 +51,10 @@ app.MapControllerRoute(
 app.Run();
 /*
     - to do list
-    add the sql inserts into the db initalizer
-    add comments throught the models explaining the validation
+    add the sql inserts into the db initalizer -- half done just need to verify-- done
+    add comments throught the models explaining the validation -- done
     do the test cases
-    do the relevant implications
-    update the class diagram to have the var names
+    do the relevant implications -- done 
+    update the class diagram to have the var names -- done
     do the use case diagram and flowchart
 */
