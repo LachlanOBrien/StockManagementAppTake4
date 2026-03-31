@@ -81,16 +81,16 @@ namespace StockManagementApp.Areas.Identity.Data
 
             var ItemLocation = new ItemLocation[]
             {
-                new ItemLocation{ItemID=1, SupplierID=3, LocationID=2, Quantity=50},
+                new ItemLocation{ItemID=3, SupplierID=3, LocationID=2, Quantity=50},
                 new ItemLocation{ItemID=2, SupplierID=7, LocationID=5, Quantity=30},
-                new ItemLocation{ItemID=3, SupplierID=1, LocationID=4, Quantity=20},
+                new ItemLocation{ItemID=1, SupplierID=1, LocationID=4, Quantity=20},
                 new ItemLocation{ItemID=4, SupplierID=9, LocationID=6, Quantity=15},
-                new ItemLocation{ItemID=5, SupplierID=2, LocationID=3, Quantity=60},
-                new ItemLocation{ItemID=6, SupplierID=8, LocationID=1, Quantity=25},
+                new ItemLocation{ItemID=6, SupplierID=2, LocationID=3, Quantity=60},
+                new ItemLocation{ItemID=10, SupplierID=8, LocationID=1, Quantity=25},
                 new ItemLocation{ItemID=7, SupplierID=10, LocationID=7, Quantity=40},
-                new ItemLocation{ItemID=8, SupplierID=4, LocationID=8, Quantity=35},
-                new ItemLocation{ItemID=9, SupplierID=6, LocationID=9, Quantity=45},
-                new ItemLocation{ItemID=10, SupplierID=5, LocationID=10, Quantity=55}
+                new ItemLocation{ItemID=9, SupplierID=4, LocationID=8, Quantity=35},
+                new ItemLocation{ItemID=8, SupplierID=6, LocationID=9, Quantity=45},
+                new ItemLocation{ItemID=5, SupplierID=5, LocationID=10, Quantity=55}
             };
 
             foreach (ItemLocation IL in ItemLocation)
@@ -102,16 +102,16 @@ namespace StockManagementApp.Areas.Identity.Data
 
             var Order = new Order[]
             {
-                new Order{ItemID=1, LocationID=3, SupplierID=5, OrderName="Restock Toothbrushes", QuantityOrdered=100, EstimatedTimeOfArrival=DateTime.Parse("2026-04-01"), Status=0},
-                new Order{ItemID=2, LocationID=7, SupplierID=2, OrderName="Floss Bulk Order", QuantityOrdered=200, EstimatedTimeOfArrival=DateTime.Parse("2026-04-03"), Status=0},
-                new Order{ItemID=3, LocationID=1, SupplierID=8, OrderName="Mouthwash Shipment", QuantityOrdered=150, EstimatedTimeOfArrival=DateTime.Parse("2026-04-02"), Status=0},
-                new Order{ItemID=4, LocationID=6, SupplierID=4, OrderName="Toothpaste Refill", QuantityOrdered=120, EstimatedTimeOfArrival=DateTime.Parse("2026-04-05"), Status=0},
-                new Order{ItemID=5, LocationID=2, SupplierID=9, OrderName="Glove Supply Order", QuantityOrdered=300, EstimatedTimeOfArrival=DateTime.Parse("2026-04-04"), Status=0},
-                new Order{ItemID=6, LocationID=9, SupplierID=1, OrderName="Mask Restock", QuantityOrdered=250, EstimatedTimeOfArrival=DateTime.Parse("2026-04-06"), Status=0},
-                new Order{ItemID=7, LocationID=4, SupplierID=7, OrderName="Sanitizer Delivery", QuantityOrdered=180, EstimatedTimeOfArrival=DateTime.Parse("2026-04-07"), Status=0},
-                new Order{ItemID=8, LocationID=8, SupplierID=3, OrderName="Cotton Rolls Order", QuantityOrdered=220, EstimatedTimeOfArrival=DateTime.Parse("2026-04-08"), Status=0},
-                new Order{ItemID=9, LocationID=5, SupplierID=6, OrderName="Syringes Batch", QuantityOrdered=140, EstimatedTimeOfArrival=DateTime.Parse("2026-04-09"), Status=0},
-                new Order{ItemID=10, LocationID=10, SupplierID=10, OrderName="Wipes Replenishment", QuantityOrdered=160, EstimatedTimeOfArrival=DateTime.Parse("2026-04-10"), Status=0}
+                new Order{ItemID=3, LocationID=3, SupplierID=5, OrderName="Restock Toothbrushes", QuantityOrdered=100, EstimatedTimeOfArrival=DateTime.Parse("2026-04-01"), Status=0},
+                new Order{ItemID=6, LocationID=7, SupplierID=2, OrderName="Floss Bulk Order", QuantityOrdered=200, EstimatedTimeOfArrival=DateTime.Parse("2026-04-03"), Status=0},
+                new Order{ItemID=10, LocationID=1, SupplierID=8, OrderName="Mouthwash Shipment", QuantityOrdered=150, EstimatedTimeOfArrival=DateTime.Parse("2026-04-02"), Status=0},
+                new Order{ItemID=9, LocationID=6, SupplierID=4, OrderName="Toothpaste Refill", QuantityOrdered=120, EstimatedTimeOfArrival=DateTime.Parse("2026-04-05"), Status=0},
+                new Order{ItemID=4, LocationID=2, SupplierID=9, OrderName="Glove Supply Order", QuantityOrdered=300, EstimatedTimeOfArrival=DateTime.Parse("2026-04-04"), Status=0},
+                new Order{ItemID=3, LocationID=9, SupplierID=1, OrderName="Mask Restock", QuantityOrdered=250, EstimatedTimeOfArrival=DateTime.Parse("2026-04-06"), Status=0},
+                new Order{ItemID=2, LocationID=4, SupplierID=7, OrderName="Sanitizer Delivery", QuantityOrdered=180, EstimatedTimeOfArrival=DateTime.Parse("2026-04-07"), Status=0},
+                new Order{ItemID=1, LocationID=8, SupplierID=3, OrderName="Cotton Rolls Order", QuantityOrdered=220, EstimatedTimeOfArrival=DateTime.Parse("2026-04-08"), Status=0},
+                new Order{ItemID=8, LocationID=5, SupplierID=6, OrderName="Syringes Batch", QuantityOrdered=140, EstimatedTimeOfArrival=DateTime.Parse("2026-04-09"), Status=0},
+                new Order{ItemID=7, LocationID=10, SupplierID=10, OrderName="Wipes Replenishment", QuantityOrdered=160, EstimatedTimeOfArrival=DateTime.Parse("2026-04-10"), Status=0}
             };
 
             foreach (Order O in Order)

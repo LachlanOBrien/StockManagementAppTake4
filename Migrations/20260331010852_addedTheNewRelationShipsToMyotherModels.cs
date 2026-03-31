@@ -60,7 +60,7 @@ namespace StockManagementApp.Migrations
                 column: "SupplierID",
                 principalTable: "Supplier",
                 principalColumn: "SupplierID",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Order_Location_LocationID",

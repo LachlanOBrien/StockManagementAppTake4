@@ -12,46 +12,58 @@ public class StockManagementAppContext : IdentityDbContext<StockManagementAppUse
         : base(options)
     {
     }
-
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        // Customize the ASP.NET Identity model and override the defaults if needed.
-        // For example, you can rename the ASP.NET Identity table names and more.
-        // Add your customizations after calling base.OnModelCreating(builder);
 
-        // Configure relationships explicitly to avoid multiple cascade paths in SQL Server.
+        // Item → Supplier
         builder.Entity<Item>()
             .HasOne(i => i.Supplier)
             .WithMany(s => s.Item)
             .HasForeignKey(i => i.SupplierID)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
+        // ItemLocation → Item
         builder.Entity<ItemLocation>()
             .HasOne(il => il.Item)
             .WithMany(i => i.ItemLocation)
             .HasForeignKey(il => il.ItemID)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
-        // Prevent a second cascade path from Supplier -> ItemLocation (direct) and Supplier -> Item -> ItemLocation (via Item)
+        // ItemLocation → Supplier
         builder.Entity<ItemLocation>()
             .HasOne(il => il.Supplier)
             .WithMany(s => s.ItemLocation)
             .HasForeignKey(il => il.SupplierID)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // Keep Order relationships cascading as desired (adjust if needed):
+        // ItemLocation → Location
+        builder.Entity<ItemLocation>()
+            .HasOne(il => il.Location)
+            .WithMany(l => l.ItemLocations)
+            .HasForeignKey(il => il.LocationID)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Order → Item
+        builder.Entity<Order>()
+            .HasOne(o => o.Item)
+            .WithMany(i => i.Order)
+            .HasForeignKey(o => o.ItemID)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Order → Supplier
         builder.Entity<Order>()
             .HasOne(o => o.Supplier)
             .WithMany(s => s.Order)
             .HasForeignKey(o => o.SupplierID)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
+        // Order → Location
         builder.Entity<Order>()
             .HasOne(o => o.Location)
             .WithMany(l => l.Orders)
             .HasForeignKey(o => o.LocationID)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
     }
 
 public DbSet<StockManagementApp.Models.Item> Item { get; set; } = default!;
