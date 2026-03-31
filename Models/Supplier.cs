@@ -33,8 +33,8 @@ namespace StockManagementApp.Models
         // ensures that the Address cannot be empty/null  only contain certain letters such as a-z A-z and 0-9 as well as some other special characters and must be 
         // between 5 and 100 characters long
 
-        public ICollection<Supplier>? ItemLocation { get; set; }
-        public ICollection<Supplier>? Item { get; set; }
-        public ICollection<Supplier>? Order { get; set; }
+        public ICollection<ItemLocation>? ItemLocation { get; set; }
+        public ICollection<Item>? Item { get; set; }
+        public ICollection<Order>? Order { get; set; }
     }
 }

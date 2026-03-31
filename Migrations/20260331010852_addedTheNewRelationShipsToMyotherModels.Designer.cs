@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockManagementApp.Areas.Identity.Data;
 
@@ -11,9 +12,11 @@ using StockManagementApp.Areas.Identity.Data;
 namespace StockManagementApp.Migrations
 {
     [DbContext(typeof(StockManagementAppContext))]
-    partial class StockManagementAppContextModelSnapshot : ModelSnapshot
+    [Migration("20260331010852_addedTheNewRelationShipsToMyotherModels")]
+    partial class addedTheNewRelationShipsToMyotherModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -478,7 +481,7 @@ namespace StockManagementApp.Migrations
                     b.HasOne("StockManagementApp.Models.Supplier", "Supplier")
                         .WithMany("ItemLocation")
                         .HasForeignKey("SupplierID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Item");

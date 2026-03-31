@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace StockManagementApp.Models
 {
@@ -23,7 +24,7 @@ namespace StockManagementApp.Models
         // ensures that the Location Address cannot be empty/null  only contain certain letters such as a-z A-z and 0-9 as well as some other special characters and must be 
         // between 5 and 100 characters long
 
-        public ICollection<Location>? ItemLocations { get; set; }
-        public ICollection<Location>? Orders { get; set; }
+        public ICollection<ItemLocation>? ItemLocations { get; set; }
+        public ICollection<Order>? Orders { get; set; }
     }
 }
