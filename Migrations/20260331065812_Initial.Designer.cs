@@ -12,8 +12,8 @@ using StockManagementApp.Areas.Identity.Data;
 namespace StockManagementApp.Migrations
 {
     [DbContext(typeof(StockManagementAppContext))]
-    [Migration("20260324223814_test")]
-    partial class test
+    [Migration("20260331065812_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,36 +24,6 @@ namespace StockManagementApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ItemItem", b =>
-                {
-                    b.Property<int>("ItemLocationItemID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderItemID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ItemLocationItemID", "OrderItemID");
-
-                    b.HasIndex("OrderItemID");
-
-                    b.ToTable("ItemItem");
-                });
-
-            modelBuilder.Entity("LocationLocation", b =>
-                {
-                    b.Property<int>("ItemLocationsLocationID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrdersLocationID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ItemLocationsLocationID", "OrdersLocationID");
-
-                    b.HasIndex("OrdersLocationID");
-
-                    b.ToTable("LocationLocation");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -205,11 +175,23 @@ namespace StockManagementApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -228,8 +210,8 @@ namespace StockManagementApp.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
@@ -239,6 +221,9 @@ namespace StockManagementApp.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -271,7 +256,8 @@ namespace StockManagementApp.Migrations
 
                     b.Property<string>("ItemName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("MinimumStock")
                         .HasColumnType("int");
@@ -283,6 +269,8 @@ namespace StockManagementApp.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ItemID");
+
+                    b.HasIndex("SupplierID");
 
                     b.ToTable("Item");
                 });
@@ -309,6 +297,12 @@ namespace StockManagementApp.Migrations
 
                     b.HasKey("ItemLocationID");
 
+                    b.HasIndex("ItemID");
+
+                    b.HasIndex("LocationID");
+
+                    b.HasIndex("SupplierID");
+
                     b.ToTable("ItemLocation");
                 });
 
@@ -322,11 +316,13 @@ namespace StockManagementApp.Migrations
 
                     b.Property<string>("LocationAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("LocationName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("LocationID");
 
@@ -352,7 +348,8 @@ namespace StockManagementApp.Migrations
 
                     b.Property<string>("OrderName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("QuantityOrdered")
                         .HasColumnType("int");
@@ -364,6 +361,12 @@ namespace StockManagementApp.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("OrderID");
+
+                    b.HasIndex("ItemID");
+
+                    b.HasIndex("LocationID");
+
+                    b.HasIndex("SupplierID");
 
                     b.ToTable("Order");
                 });
@@ -378,52 +381,25 @@ namespace StockManagementApp.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("SupplierName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("SupplierID");
 
                     b.ToTable("Supplier");
-                });
-
-            modelBuilder.Entity("ItemItem", b =>
-                {
-                    b.HasOne("StockManagementApp.Models.Item", null)
-                        .WithMany()
-                        .HasForeignKey("ItemLocationItemID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StockManagementApp.Models.Item", null)
-                        .WithMany()
-                        .HasForeignKey("OrderItemID")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("LocationLocation", b =>
-                {
-                    b.HasOne("StockManagementApp.Models.Location", null)
-                        .WithMany()
-                        .HasForeignKey("ItemLocationsLocationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StockManagementApp.Models.Location", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersLocationID")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -475,6 +451,94 @@ namespace StockManagementApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("StockManagementApp.Models.Item", b =>
+                {
+                    b.HasOne("StockManagementApp.Models.Supplier", "Supplier")
+                        .WithMany("Item")
+                        .HasForeignKey("SupplierID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("StockManagementApp.Models.ItemLocation", b =>
+                {
+                    b.HasOne("StockManagementApp.Models.Item", "Item")
+                        .WithMany("ItemLocation")
+                        .HasForeignKey("ItemID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StockManagementApp.Models.Location", "Location")
+                        .WithMany("ItemLocations")
+                        .HasForeignKey("LocationID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StockManagementApp.Models.Supplier", "Supplier")
+                        .WithMany("ItemLocation")
+                        .HasForeignKey("SupplierID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("StockManagementApp.Models.Order", b =>
+                {
+                    b.HasOne("StockManagementApp.Models.Item", "Item")
+                        .WithMany("Order")
+                        .HasForeignKey("ItemID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StockManagementApp.Models.Location", "Location")
+                        .WithMany("Orders")
+                        .HasForeignKey("LocationID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StockManagementApp.Models.Supplier", "Supplier")
+                        .WithMany("Order")
+                        .HasForeignKey("SupplierID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("StockManagementApp.Models.Item", b =>
+                {
+                    b.Navigation("ItemLocation");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("StockManagementApp.Models.Location", b =>
+                {
+                    b.Navigation("ItemLocations");
+
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("StockManagementApp.Models.Supplier", b =>
+                {
+                    b.Navigation("Item");
+
+                    b.Navigation("ItemLocation");
+
+                    b.Navigation("Order");
                 });
 #pragma warning restore 612, 618
         }

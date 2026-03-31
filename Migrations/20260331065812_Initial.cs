@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StockManagementApp.Migrations
 {
     /// <inheritdoc />
-    public partial class Inital : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,15 +30,19 @@ namespace StockManagementApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
+                    IsAdmin = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -51,69 +55,17 @@ namespace StockManagementApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Item",
-                columns: table => new
-                {
-                    ItemID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierID = table.Column<int>(type: "int", nullable: false),
-                    ItemName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ItemDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    MinimumStock = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Item", x => x.ItemID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ItemLocation",
-                columns: table => new
-                {
-                    ItemLocationID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ItemID = table.Column<int>(type: "int", nullable: false),
-                    SupplierID = table.Column<int>(type: "int", nullable: false),
-                    LocationID = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItemLocation", x => x.ItemLocationID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Location",
                 columns: table => new
                 {
                     LocationID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LocationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LocationAddress = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    LocationName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LocationAddress = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Location", x => x.LocationID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Order",
-                columns: table => new
-                {
-                    OrderID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ItemID = table.Column<int>(type: "int", nullable: false),
-                    LocationID = table.Column<int>(type: "int", nullable: false),
-                    SupplierID = table.Column<int>(type: "int", nullable: false),
-                    OrderName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    QuantityOrdered = table.Column<int>(type: "int", nullable: false),
-                    EstimatedTimeOfArrival = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Order", x => x.OrderID);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,10 +74,10 @@ namespace StockManagementApp.Migrations
                 {
                     SupplierID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SupplierName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PhoneNumber = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -239,49 +191,97 @@ namespace StockManagementApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ItemItem",
+                name: "Item",
                 columns: table => new
                 {
-                    ItemLocationItemID = table.Column<int>(type: "int", nullable: false),
-                    OrderItemID = table.Column<int>(type: "int", nullable: false)
+                    ItemID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SupplierID = table.Column<int>(type: "int", nullable: false),
+                    ItemName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ItemDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    MinimumStock = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ItemItem", x => new { x.ItemLocationItemID, x.OrderItemID });
+                    table.PrimaryKey("PK_Item", x => x.ItemID);
                     table.ForeignKey(
-                        name: "FK_ItemItem_Item_ItemLocationItemID",
-                        column: x => x.ItemLocationItemID,
-                        principalTable: "Item",
-                        principalColumn: "ItemID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ItemItem_Item_OrderItemID",
-                        column: x => x.OrderItemID,
-                        principalTable: "Item",
-                        principalColumn: "ItemID");
+                        name: "FK_Item_Supplier_SupplierID",
+                        column: x => x.SupplierID,
+                        principalTable: "Supplier",
+                        principalColumn: "SupplierID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "LocationLocation",
+                name: "ItemLocation",
                 columns: table => new
                 {
-                    ItemLocationsLocationID = table.Column<int>(type: "int", nullable: false),
-                    OrdersLocationID = table.Column<int>(type: "int", nullable: false)
+                    ItemLocationID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ItemID = table.Column<int>(type: "int", nullable: false),
+                    SupplierID = table.Column<int>(type: "int", nullable: false),
+                    LocationID = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LocationLocation", x => new { x.ItemLocationsLocationID, x.OrdersLocationID });
+                    table.PrimaryKey("PK_ItemLocation", x => x.ItemLocationID);
                     table.ForeignKey(
-                        name: "FK_LocationLocation_Location_ItemLocationsLocationID",
-                        column: x => x.ItemLocationsLocationID,
+                        name: "FK_ItemLocation_Item_ItemID",
+                        column: x => x.ItemID,
+                        principalTable: "Item",
+                        principalColumn: "ItemID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemLocation_Location_LocationID",
+                        column: x => x.LocationID,
                         principalTable: "Location",
                         principalColumn: "LocationID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_LocationLocation_Location_OrdersLocationID",
-                        column: x => x.OrdersLocationID,
+                        name: "FK_ItemLocation_Supplier_SupplierID",
+                        column: x => x.SupplierID,
+                        principalTable: "Supplier",
+                        principalColumn: "SupplierID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    OrderID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ItemID = table.Column<int>(type: "int", nullable: false),
+                    LocationID = table.Column<int>(type: "int", nullable: false),
+                    SupplierID = table.Column<int>(type: "int", nullable: false),
+                    OrderName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    QuantityOrdered = table.Column<int>(type: "int", nullable: false),
+                    EstimatedTimeOfArrival = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.OrderID);
+                    table.ForeignKey(
+                        name: "FK_Order_Item_ItemID",
+                        column: x => x.ItemID,
+                        principalTable: "Item",
+                        principalColumn: "ItemID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Order_Location_LocationID",
+                        column: x => x.LocationID,
                         principalTable: "Location",
-                        principalColumn: "LocationID");
+                        principalColumn: "LocationID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Order_Supplier_SupplierID",
+                        column: x => x.SupplierID,
+                        principalTable: "Supplier",
+                        principalColumn: "SupplierID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -324,14 +324,39 @@ namespace StockManagementApp.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemItem_OrderItemID",
-                table: "ItemItem",
-                column: "OrderItemID");
+                name: "IX_Item_SupplierID",
+                table: "Item",
+                column: "SupplierID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LocationLocation_OrdersLocationID",
-                table: "LocationLocation",
-                column: "OrdersLocationID");
+                name: "IX_ItemLocation_ItemID",
+                table: "ItemLocation",
+                column: "ItemID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemLocation_LocationID",
+                table: "ItemLocation",
+                column: "LocationID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemLocation_SupplierID",
+                table: "ItemLocation",
+                column: "SupplierID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_ItemID",
+                table: "Order",
+                column: "ItemID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_LocationID",
+                table: "Order",
+                column: "LocationID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_SupplierID",
+                table: "Order",
+                column: "SupplierID");
         }
 
         /// <inheritdoc />
@@ -353,19 +378,10 @@ namespace StockManagementApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ItemItem");
-
-            migrationBuilder.DropTable(
                 name: "ItemLocation");
 
             migrationBuilder.DropTable(
-                name: "LocationLocation");
-
-            migrationBuilder.DropTable(
                 name: "Order");
-
-            migrationBuilder.DropTable(
-                name: "Supplier");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -378,6 +394,9 @@ namespace StockManagementApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Location");
+
+            migrationBuilder.DropTable(
+                name: "Supplier");
         }
     }
 }
