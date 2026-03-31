@@ -7,19 +7,19 @@ namespace StockManagementApp.Models
     { //[Required(ErrorMessage="This Field cannot be empty")]
         public int OrderID { get; set; }
 
-        [Display(Name = "Items' Name")]
+        [Display(Name = "Items Name")]
         [Required(ErrorMessage = "This Field cannot be empty")]
         public int ItemID { get; set; }
         public Item? Item { get; set; }
         // ensures that the Item ID cannot be empty/null
 
-        [Display(Name = "Locations' Name")]
+        [Display(Name = "Locations Name")]
         [Required(ErrorMessage = "This Field cannot be empty")]
         public int LocationID { get; set; }
         public Location? Location { get; set; }
         // ensures that the Location ID cannot be empty/null
 
-        [Display(Name = "Suppliers' Name")]
+        [Display(Name = "Suppliers Name")]
         [Required(ErrorMessage = "This Field cannot be empty")]
         public int SupplierID { get; set; }
         public Supplier? Supplier { get; set; }
