@@ -22,7 +22,8 @@ namespace StockManagementApp.Controllers
         // GET: ItemLocations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ItemLocation.ToListAsync());
+            var stockManagementAppContext = _context.ItemLocation.Include(i => i.Item).Include(i => i.Location).Include(i => i.Supplier);
+            return View(await stockManagementAppContext.ToListAsync());
         }
 
         // GET: ItemLocations/Details/5
@@ -34,6 +35,9 @@ namespace StockManagementApp.Controllers
             }
 
             var itemLocation = await _context.ItemLocation
+                .Include(i => i.Item)
+                .Include(i => i.Location)
+                .Include(i => i.Supplier)
                 .FirstOrDefaultAsync(m => m.ItemLocationID == id);
             if (itemLocation == null)
             {
@@ -46,6 +50,9 @@ namespace StockManagementApp.Controllers
         // GET: ItemLocations/Create
         public IActionResult Create()
         {
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription");
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress");
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address");
             return View();
         }
 
@@ -62,6 +69,9 @@ namespace StockManagementApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", itemLocation.ItemID);
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", itemLocation.LocationID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", itemLocation.SupplierID);
             return View(itemLocation);
         }
 
@@ -78,6 +88,9 @@ namespace StockManagementApp.Controllers
             {
                 return NotFound();
             }
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", itemLocation.ItemID);
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", itemLocation.LocationID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", itemLocation.SupplierID);
             return View(itemLocation);
         }
 
@@ -113,6 +126,9 @@ namespace StockManagementApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", itemLocation.ItemID);
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", itemLocation.LocationID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", itemLocation.SupplierID);
             return View(itemLocation);
         }
 
@@ -125,6 +141,9 @@ namespace StockManagementApp.Controllers
             }
 
             var itemLocation = await _context.ItemLocation
+                .Include(i => i.Item)
+                .Include(i => i.Location)
+                .Include(i => i.Supplier)
                 .FirstOrDefaultAsync(m => m.ItemLocationID == id);
             if (itemLocation == null)
             {

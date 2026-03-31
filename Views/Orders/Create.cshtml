@@ -1,5 +1,4 @@
 ﻿@model StockManagementApp.Models.Order
-@using System.Linq
 
 @{
     ViewData["Title"] = "Create";
@@ -15,18 +14,15 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ItemID" class="control-label"></label>
-                <input asp-for="ItemID" class="form-control" />
-                <span asp-validation-for="ItemID" class="text-danger"></span>
+                <select asp-for="ItemID" class ="form-control" asp-items="ViewBag.ItemID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="LocationID" class="control-label"></label>
-                <input asp-for="LocationID" class="form-control" />
-                <span asp-validation-for="LocationID" class="text-danger"></span>
+                <select asp-for="LocationID" class ="form-control" asp-items="ViewBag.LocationID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="SupplierID" class="control-label"></label>
-                <input asp-for="SupplierID" class="form-control" />
-                <span asp-validation-for="SupplierID" class="text-danger"></span>
+                <select asp-for="SupplierID" class ="form-control" asp-items="ViewBag.SupplierID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="OrderName" class="control-label"></label>
@@ -39,8 +35,7 @@
                 <span asp-validation-for="QuantityOrdered" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EstimatedTimeOfArrival" class="control-label"></label>
-              @*<input asp-for="EstimatedTimeOfArrival" class="form-control" /> *@
+                <label asp-for="EstimatedTimeOfArrival" class="control-label"></label>             
                 <input asp-for="EstimatedTimeOfArrival" type="date" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="EstimatedTimeOfArrival" class="text-danger"></span>
             </div>
@@ -63,6 +58,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-
-

@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StockManagementApp.Areas.Identity.Data;
 using StockManagementApp.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using static StockManagementApp.Models.Order;
 
 namespace StockManagementApp.Controllers
@@ -23,7 +23,8 @@ namespace StockManagementApp.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Order.ToListAsync());
+            var stockManagementAppContext = _context.Order.Include(o => o.Item).Include(o => o.Location).Include(o => o.Supplier);
+            return View(await stockManagementAppContext.ToListAsync());
         }
 
         // GET: Orders/Details/5
@@ -35,6 +36,9 @@ namespace StockManagementApp.Controllers
             }
 
             var order = await _context.Order
+                .Include(o => o.Item)
+                .Include(o => o.Location)
+                .Include(o => o.Supplier)
                 .FirstOrDefaultAsync(m => m.OrderID == id);
             if (order == null)
             {
@@ -47,18 +51,13 @@ namespace StockManagementApp.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            //ViewData["ItemStatus"] = new SelectList(Enum.GetValues(typeof(ItemStatus)));
-            //ViewData["ItemStatus"] = new SelectList(new List<SelectListItem>
-            //{
-            //    new SelectListItem { Value = "Pending", Text = "Pending" },
-            //    new SelectListItem { Value = "Shipped", Text = "Shipped" },
-            //    new SelectListItem { Value = "Delivered", Text = "Delivered" },
-            //    new SelectListItem { Value = "Cancelled", Text = "Cancelled" }
-            //}, "Value", "Text");
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription");
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress");
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address");
             var statuses = Enum.GetValues(typeof(ItemStatus))
-                            .Cast<ItemStatus>()
-                            .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
-                            .ToList();
+                           .Cast<ItemStatus>()
+                           .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
+                           .ToList();
             ViewBag.StatusList = statuses;
             return View();
         }
@@ -77,10 +76,13 @@ namespace StockManagementApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             var statuses = Enum.GetValues(typeof(ItemStatus))
-                             .Cast<ItemStatus>()
-                             .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
-                             .ToList();
+                           .Cast<ItemStatus>()
+                           .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
+                           .ToList();
             ViewBag.StatusList = statuses;
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", order.ItemID);
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", order.LocationID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", order.SupplierID);
             return View(order);
         }
 
@@ -97,11 +99,9 @@ namespace StockManagementApp.Controllers
             {
                 return NotFound();
             }
-            var statuses = Enum.GetValues(typeof(ItemStatus))
-                             .Cast<ItemStatus>()
-                             .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
-                             .ToList();
-            ViewBag.StatusList = statuses;
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", order.ItemID);
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", order.LocationID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", order.SupplierID);
             return View(order);
         }
 
@@ -134,16 +134,17 @@ namespace StockManagementApp.Controllers
                     {
                         throw;
                     }
-
                 }
-
                 return RedirectToAction(nameof(Index));
             }
             var statuses = Enum.GetValues(typeof(ItemStatus))
-                 .Cast<ItemStatus>()
-                 .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
-                 .ToList();
+                           .Cast<ItemStatus>()
+                           .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
+                           .ToList();
             ViewBag.StatusList = statuses;
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", order.ItemID);
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", order.LocationID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", order.SupplierID);
             return View(order);
         }
 
@@ -156,12 +157,19 @@ namespace StockManagementApp.Controllers
             }
 
             var order = await _context.Order
+                .Include(o => o.Item)
+                .Include(o => o.Location)
+                .Include(o => o.Supplier)
                 .FirstOrDefaultAsync(m => m.OrderID == id);
             if (order == null)
             {
                 return NotFound();
             }
-
+            var statuses = Enum.GetValues(typeof(ItemStatus))
+                           .Cast<ItemStatus>()
+                           .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
+                           .ToList();
+            ViewBag.StatusList = statuses;
             return View(order);
         }
 

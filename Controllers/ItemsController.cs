@@ -22,7 +22,8 @@ namespace StockManagementApp.Controllers
         // GET: Items
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Item.ToListAsync());
+            var stockManagementAppContext = _context.Item.Include(i => i.Supplier);
+            return View(await stockManagementAppContext.ToListAsync());
         }
 
         // GET: Items/Details/5
@@ -34,6 +35,7 @@ namespace StockManagementApp.Controllers
             }
 
             var item = await _context.Item
+                .Include(i => i.Supplier)
                 .FirstOrDefaultAsync(m => m.ItemID == id);
             if (item == null)
             {
@@ -46,6 +48,7 @@ namespace StockManagementApp.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address");
             return View();
         }
 
@@ -62,6 +65,7 @@ namespace StockManagementApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", item.SupplierID);
             return View(item);
         }
 
@@ -78,6 +82,7 @@ namespace StockManagementApp.Controllers
             {
                 return NotFound();
             }
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", item.SupplierID);
             return View(item);
         }
 
@@ -113,6 +118,7 @@ namespace StockManagementApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", item.SupplierID);
             return View(item);
         }
 
@@ -125,6 +131,7 @@ namespace StockManagementApp.Controllers
             }
 
             var item = await _context.Item
+                .Include(i => i.Supplier)
                 .FirstOrDefaultAsync(m => m.ItemID == id);
             if (item == null)
             {
