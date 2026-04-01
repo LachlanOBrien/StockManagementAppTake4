@@ -13,13 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Item)
+                Item Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
+                Location Address
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Supplier)
+                Supplier Name
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.OrderName)
@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Location.LocationAddress)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Supplier.Address)
+                @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OrderName)

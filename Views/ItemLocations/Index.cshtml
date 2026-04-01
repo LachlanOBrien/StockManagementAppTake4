@@ -12,18 +12,10 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Item)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Supplier)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
+            <th>Item Name</th>
+            <th>Suplier Name</th>
+            <th>Location Address</th>
+            <th>Quantity</th>
             <th></th>
         </tr>
     </thead>
@@ -34,7 +26,7 @@
                 @Html.DisplayFor(modelItem => item.Item.ItemDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Supplier.Address)
+                @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Location.LocationAddress)

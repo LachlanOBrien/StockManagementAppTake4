@@ -48,7 +48,7 @@ namespace StockManagementApp.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address");
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace StockManagementApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", item.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName", item.SupplierID);
             return View(item);
         }
 
@@ -82,7 +82,7 @@ namespace StockManagementApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", item.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName", item.SupplierID);
             return View(item);
         }
 
@@ -118,7 +118,7 @@ namespace StockManagementApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", item.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName", item.SupplierID);
             return View(item);
         }
 
