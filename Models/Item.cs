@@ -7,7 +7,7 @@ namespace StockManagementApp.Models
         public int ItemID { get; set; }
 
 
-        [Display(Name = "Suppliers' Name")]
+        [Display(Name = "Suppliers Name")]
         [Required(ErrorMessage = "This Field cannot be empty")]
         public int SupplierID { get; set; }
         public Supplier? Supplier { get; set; }

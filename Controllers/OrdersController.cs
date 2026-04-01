@@ -53,7 +53,7 @@ namespace StockManagementApp.Controllers
         {
             ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription");
             ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress");
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address");
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName");
             var statuses = Enum.GetValues(typeof(ItemStatus))
                            .Cast<ItemStatus>()
                            .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
@@ -82,7 +82,7 @@ namespace StockManagementApp.Controllers
             ViewBag.StatusList = statuses;
             ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", order.ItemID);
             ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", order.LocationID);
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", order.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName", order.SupplierID);
             return View(order);
         }
 
@@ -101,7 +101,7 @@ namespace StockManagementApp.Controllers
             }
             ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", order.ItemID);
             ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", order.LocationID);
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", order.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName", order.SupplierID);
             return View(order);
         }
 
@@ -144,7 +144,7 @@ namespace StockManagementApp.Controllers
             ViewBag.StatusList = statuses;
             ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", order.ItemID);
             ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", order.LocationID);
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", order.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName", order.SupplierID);
             return View(order);
         }
 

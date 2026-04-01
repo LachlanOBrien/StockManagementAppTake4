@@ -52,7 +52,7 @@ namespace StockManagementApp.Controllers
         {
             ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription");
             ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress");
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address");
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName");
             return View();
         }
 
@@ -71,7 +71,7 @@ namespace StockManagementApp.Controllers
             }
             ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", itemLocation.ItemID);
             ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", itemLocation.LocationID);
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", itemLocation.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName", itemLocation.SupplierID);
             return View(itemLocation);
         }
 
@@ -90,7 +90,7 @@ namespace StockManagementApp.Controllers
             }
             ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", itemLocation.ItemID);
             ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", itemLocation.LocationID);
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", itemLocation.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName", itemLocation.SupplierID);
             return View(itemLocation);
         }
 
@@ -128,7 +128,7 @@ namespace StockManagementApp.Controllers
             }
             ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", itemLocation.ItemID);
             ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", itemLocation.LocationID);
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "Address", itemLocation.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName", itemLocation.SupplierID);
             return View(itemLocation);
         }
 

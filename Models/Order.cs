@@ -13,7 +13,7 @@ namespace StockManagementApp.Models
         public Item? Item { get; set; }
         // ensures that the Item ID cannot be empty/null
 
-        [Display(Name = "Locations Name")]
+        [Display(Name = "Locations Address")]
         [Required(ErrorMessage = "This Field cannot be empty")]
         public int LocationID { get; set; }
         public Location? Location { get; set; }
