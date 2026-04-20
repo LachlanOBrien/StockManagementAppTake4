@@ -49,3 +49,19 @@ app.MapControllerRoute(
 
 
 app.Run();
+/*
+- to do list
+do the 3rd normal form changes and they re do the entire project changing the required thingys 
+changes consist of adding an 
+order item table
+fields - order id
+       - oder name 
+       - item ID
+       - Qtyordered
+order table
+Fields - OrderID
+       - Status
+       - ETA
+add images into the database 
+suppliers users items table require images 
+*/
