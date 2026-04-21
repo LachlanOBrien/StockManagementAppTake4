@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StockManagementApp.Areas.Identity.Data;
 using StockManagementApp.Models;
-using static StockManagementApp.Models.Order;
 
 namespace StockManagementApp.Controllers
 {
@@ -23,8 +22,7 @@ namespace StockManagementApp.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var stockManagementAppContext = _context.Order.Include(o => o.Item).Include(o => o.Location).Include(o => o.Supplier);
-            return View(await stockManagementAppContext.ToListAsync());
+            return View(await _context.Order.ToListAsync());
         }
 
         // GET: Orders/Details/5
@@ -36,9 +34,6 @@ namespace StockManagementApp.Controllers
             }
 
             var order = await _context.Order
-                .Include(o => o.Item)
-                .Include(o => o.Location)
-                .Include(o => o.Supplier)
                 .FirstOrDefaultAsync(m => m.OrderID == id);
             if (order == null)
             {
@@ -51,14 +46,6 @@ namespace StockManagementApp.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription");
-            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress");
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName");
-            var statuses = Enum.GetValues(typeof(ItemStatus))
-                           .Cast<ItemStatus>()
-                           .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
-                           .ToList();
-            ViewBag.StatusList = statuses;
             return View();
         }
 
@@ -67,7 +54,7 @@ namespace StockManagementApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderID,ItemID,LocationID,SupplierID,OrderName,QuantityOrdered,EstimatedTimeOfArrival,Status")] Order order)
+        public async Task<IActionResult> Create([Bind("OrderID,EstimatedTimeOfArrival,Status")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -75,14 +62,6 @@ namespace StockManagementApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            var statuses = Enum.GetValues(typeof(ItemStatus))
-                           .Cast<ItemStatus>()
-                           .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
-                           .ToList();
-            ViewBag.StatusList = statuses;
-            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", order.ItemID);
-            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", order.LocationID);
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName", order.SupplierID);
             return View(order);
         }
 
@@ -99,9 +78,6 @@ namespace StockManagementApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", order.ItemID);
-            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", order.LocationID);
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName", order.SupplierID);
             return View(order);
         }
 
@@ -110,7 +86,7 @@ namespace StockManagementApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderID,ItemID,LocationID,SupplierID,OrderName,QuantityOrdered,EstimatedTimeOfArrival,Status")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderID,EstimatedTimeOfArrival,Status")] Order order)
         {
             if (id != order.OrderID)
             {
@@ -137,14 +113,6 @@ namespace StockManagementApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            var statuses = Enum.GetValues(typeof(ItemStatus))
-                           .Cast<ItemStatus>()
-                           .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
-                           .ToList();
-            ViewBag.StatusList = statuses;
-            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", order.ItemID);
-            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationAddress", order.LocationID);
-            ViewData["SupplierID"] = new SelectList(_context.Supplier, "SupplierID", "SupplierName", order.SupplierID);
             return View(order);
         }
 
@@ -157,19 +125,12 @@ namespace StockManagementApp.Controllers
             }
 
             var order = await _context.Order
-                .Include(o => o.Item)
-                .Include(o => o.Location)
-                .Include(o => o.Supplier)
                 .FirstOrDefaultAsync(m => m.OrderID == id);
             if (order == null)
             {
                 return NotFound();
             }
-            var statuses = Enum.GetValues(typeof(ItemStatus))
-                           .Cast<ItemStatus>()
-                           .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() })
-                           .ToList();
-            ViewBag.StatusList = statuses;
+
             return View(order);
         }
 

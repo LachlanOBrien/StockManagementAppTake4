@@ -39,5 +39,6 @@ namespace StockManagementApp.Models
 
         public ICollection<ItemLocation>? ItemLocation { get; set; }
         public ICollection<Order>? Order { get; set; }
+        public ICollection<OrderItem>? OrderItems { get; set; }
     }
 }

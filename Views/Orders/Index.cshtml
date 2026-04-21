@@ -1,32 +1,17 @@
 ﻿@model IEnumerable<StockManagementApp.Models.Order>
 
 @{
-    ViewData["Title"] = "Orders";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Orders</h1>
+<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-striped">
+<table class="table">
     <thead>
         <tr>
-            <th>
-                Item Name
-            </th>
-            <th>
-                Location Address
-            </th>
-            <th>
-                Supplier Name
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QuantityOrdered)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.EstimatedTimeOfArrival)
             </th>
@@ -39,21 +24,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.ItemDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location.LocationAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuantityOrdered)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EstimatedTimeOfArrival)
             </td>

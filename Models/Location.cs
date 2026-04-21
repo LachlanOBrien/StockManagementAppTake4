@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static NuGet.Packaging.PackagingConstants;
+//using static NuGet.Packaging.PackagingConstants;
 
 namespace StockManagementApp.Models
 {

@@ -43,27 +43,15 @@ public class StockManagementAppContext : IdentityDbContext<StockManagementAppUse
             .WithMany(l => l.ItemLocations)
             .HasForeignKey(il => il.LocationID)
             .OnDelete(DeleteBehavior.Restrict);
-
-        // Order → Item
-        builder.Entity<Order>()
+        builder.Entity<ItemLocation>();
+        // OrderItem → Item
+        builder.Entity<OrderItem>()
             .HasOne(o => o.Item)
-            .WithMany(i => i.Order)
+            .WithMany(i => i.OrderItems)
             .HasForeignKey(o => o.ItemID)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // Order → Supplier
-        builder.Entity<Order>()
-            .HasOne(o => o.Supplier)
-            .WithMany(s => s.Order)
-            .HasForeignKey(o => o.SupplierID)
-            .OnDelete(DeleteBehavior.Restrict);
 
-        // Order → Location
-        builder.Entity<Order>()
-            .HasOne(o => o.Location)
-            .WithMany(l => l.Orders)
-            .HasForeignKey(o => o.LocationID)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 
 public DbSet<StockManagementApp.Models.Item> Item { get; set; } = default!;
@@ -75,4 +63,6 @@ public DbSet<StockManagementApp.Models.Location> Location { get; set; } = defaul
 public DbSet<StockManagementApp.Models.Order> Order { get; set; } = default!;
 
 public DbSet<StockManagementApp.Models.Supplier> Supplier { get; set; } = default!;
+
+public DbSet<StockManagementApp.Models.OrderItem> OrderItem { get; set; } = default!;
 }
