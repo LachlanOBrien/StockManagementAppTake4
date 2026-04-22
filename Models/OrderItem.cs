@@ -12,5 +12,7 @@ namespace StockManagementApp.Models
         public int ItemID { get; set; }
         public Item? Item { get; set; }
         public int QuantityOrdered { get; set; }
+
+        
     }
 }

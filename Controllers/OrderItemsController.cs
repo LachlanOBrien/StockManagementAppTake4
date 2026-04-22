@@ -49,8 +49,8 @@ namespace StockManagementApp.Controllers
         // GET: OrderItems/Create
         public IActionResult Create()
         {
-            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription");
-            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderID");
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemName");
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderName");
             return View();
         }
 
@@ -67,8 +67,8 @@ namespace StockManagementApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", orderItem.ItemID);
-            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderID", orderItem.OrderID);
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemName", orderItem.ItemID);
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderName", orderItem.OrderID);
             return View(orderItem);
         }
 
@@ -85,8 +85,8 @@ namespace StockManagementApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", orderItem.ItemID);
-            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderID", orderItem.OrderID);
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemName", orderItem.ItemID);
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderName", orderItem.OrderID);
             return View(orderItem);
         }
 
@@ -122,8 +122,8 @@ namespace StockManagementApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", orderItem.ItemID);
-            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderID", orderItem.OrderID);
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemName", orderItem.ItemID);
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderName", orderItem.OrderID);
             return View(orderItem);
         }
 

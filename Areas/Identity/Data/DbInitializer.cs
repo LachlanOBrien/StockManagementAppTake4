@@ -1,6 +1,7 @@
 ﻿using StockManagementApp.Models;
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace StockManagementApp.Areas.Identity.Data
 {
@@ -8,7 +9,9 @@ namespace StockManagementApp.Areas.Identity.Data
     {
         public static void Initialize(StockManagementAppContext context)
         {
-            context.Database.EnsureCreated();
+            // Apply any pending migrations and create the database if it does not exist.
+            // Using Migrate() is preferred when the project uses EF Core migrations.
+            context.Database.Migrate();
 
             // Look for any products.
             if (context.Item.Any())
@@ -109,9 +112,9 @@ namespace StockManagementApp.Areas.Identity.Data
                 new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-04"), Status = 0},
                 new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-06"), Status = 0},
                 new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-07"), Status = 0},
-                new Order{EstimatedTimeOfArrival=DateTime.Parse("2026-04-08"), Status=0},
-                new Order{EstimatedTimeOfArrival=DateTime.Parse("2026-04-09"), Status=0},
-                new Order{EstimatedTimeOfArrival=DateTime.Parse("2026-04-10"), Status=0}
+                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-08"), Status = 0 },
+                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-09"), Status = 0},
+                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-10"), Status = 0}
             };
 
             foreach (Order O in Order)
@@ -121,9 +124,9 @@ namespace StockManagementApp.Areas.Identity.Data
             context.SaveChanges();
 
             var OrderItem = new OrderItem[]
-{
-                new OrderItem{ItemID=3,  OrderName="Restock Toothbrushes", QuantityOrdered=100},
-                new OrderItem{ItemID=6,  OrderName="Floss Bulk Order", QuantityOrdered=200},
+            {
+                new OrderItem{ItemID = 3,  OrderName="Restock Toothbrushes", QuantityOrdered = 100},
+                new OrderItem{ItemID = 6,  OrderName="Floss Bulk Order", QuantityOrdered = 00},
                 new OrderItem{ItemID = 10, OrderName = "Mouthwash Shipment", QuantityOrdered = 150},
                 new OrderItem{ItemID = 9, OrderName = "Toothpaste Refill", QuantityOrdered = 120},
                 new OrderItem{ItemID = 4, OrderName = "Glove Supply Order", QuantityOrdered = 300},
@@ -132,11 +135,11 @@ namespace StockManagementApp.Areas.Identity.Data
                 new OrderItem{ItemID = 1, OrderName = "Cotton Rolls Order", QuantityOrdered = 220},
                 new OrderItem{ItemID = 8, OrderName = "Syringes Batch", QuantityOrdered = 140},
                 new OrderItem{ItemID = 7, OrderName = "Wipes Replenishment", QuantityOrdered = 160}
-};
+            };
 
-            foreach (Order O in Order)
+            foreach (OrderItem OI in OrderItem)
             {
-                context.Order.Add(O);
+                context.OrderItem.Add(OI);
             }
             context.SaveChanges();
 

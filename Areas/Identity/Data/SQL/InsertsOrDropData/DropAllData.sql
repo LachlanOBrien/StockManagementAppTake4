@@ -2,6 +2,7 @@
 DELETE FROM ItemLocation;
 DELETE FROM [Order];
 
+DELETE FROM OrderItem;
 DELETE FROM Item;
 DELETE FROM Supplier;
 DELETE FROM Location;
