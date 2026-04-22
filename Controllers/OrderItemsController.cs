@@ -49,6 +49,11 @@ namespace StockManagementApp.Controllers
         // GET: OrderItems/Create
         public IActionResult Create()
         {
+            if (_context.Order == null)
+            {
+                return Problem("Orders DbSet is null.");
+            }
+
             ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemName");
             ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderName");
             return View();

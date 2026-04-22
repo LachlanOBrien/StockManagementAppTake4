@@ -25,6 +25,5 @@ namespace StockManagementApp.Models
         // between 5 and 100 characters long
 
         public ICollection<ItemLocation>? ItemLocations { get; set; }
-        public ICollection<Order>? Orders { get; set; }
     }
 }

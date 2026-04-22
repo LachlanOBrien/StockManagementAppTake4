@@ -51,7 +51,12 @@ public class StockManagementAppContext : IdentityDbContext<StockManagementAppUse
             .HasForeignKey(o => o.ItemID)
             .OnDelete(DeleteBehavior.Restrict);
 
-
+        // OrderItem → Order
+        builder.Entity<OrderItem>()
+            .HasOne(o => o.Order)
+            .WithMany(o => o.OrderItem)
+            .HasForeignKey(o => o.OrderID)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
 public DbSet<StockManagementApp.Models.Item> Item { get; set; } = default!;

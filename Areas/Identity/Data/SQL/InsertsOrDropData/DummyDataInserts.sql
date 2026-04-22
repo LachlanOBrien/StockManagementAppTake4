@@ -62,3 +62,54 @@ VALUES
 ('Supplier Eight', 'Supplier8@supplier8.net', '0215551008', '88 Tech Park, Wellington'),
 ('Supplier Nine', 'Supplier9@supplier9.co.nz', '0215551009', '19 Ocean Rd, Napier'),
 ('Supplier Ten', 'Supplier10@supplier10.org', '0215551010', '77 South St, Invercargill');
+
+INSERT INTO Supplier (SupplierName, Email, PhoneNumber, Address)
+VALUES
+('Supplier One', 'Supplier1@supplier1.co.nz', '0215551001', '12 Industry Lane, Auckland'),
+('Supplier Two', 'Supplier2@supplier2.com', '0215551002', '45 Health St, Wellington'),
+('Supplier Three', 'Supplier3@supplier3.net', '0215551003', '78 Smile Ave, Christchurch'),
+('Supplier Four', 'Supplier4@supplier4.co.nz', '0215551004', '34 Care Rd, Hamilton'),
+('Supplier Five', 'Supplier5@supplier5.org', '0215551005', '56 Supply Dr, Tauranga'),
+('Supplier Six', 'Supplier6@supplier6.co.nz', '0215551006', '22 Market St, Dunedin'),
+('Supplier Seven', 'Supplier7@supplier7.com', '0215551007', '10 Harbour View Rd, Auckland'),
+('Supplier Eight', 'Supplier8@supplier8.net', '0215551008', '88 Tech Park, Wellington'),
+('Supplier Nine', 'Supplier9@supplier9.co.nz', '0215551009', '19 Ocean Rd, Napier'),
+('Supplier Ten', 'Supplier10@supplier10.org', '0215551010', '77 South St, Invercargill');
+
+INSERT INTO Item (SupplierID, ItemName, ItemDescription, Price, MinimumStock)
+VALUES 
+(3, 'Toothbrush', 'Soft bristle toothbrush', 3.50, 20),
+(7, 'Dental Floss', 'Mint flavored floss', 2.20, 30),
+(1, 'Mouthwash', 'Alcohol-free mouthwash', 5.99, 15),
+(9, 'Toothpaste', 'Whitening toothpaste', 4.75, 25),
+(5, 'Gloves', 'Latex examination gloves', 12.00, 50),
+(2, 'Face Mask', 'Disposable surgical masks', 8.50, 40),
+(10, 'Hand Sanitizer', '70% alcohol sanitizer', 6.25, 35),
+(6, 'Cotton Rolls', 'Dental cotton rolls pack', 9.80, 45),
+(4, 'Syringes', 'Sterile disposable syringes', 15.00, 60),
+(8, 'Disinfectant Wipes', 'Surface cleaning wipes', 7.30, 30);
+
+-- Insert OrderItems
+INSERT INTO OrderItem (ItemID, OrderName, QuantityOrdered, OrderID) VALUES
+(3, 'Restock Toothbrushes', 100, 1),
+(6, 'Floss Bulk Order', 0, 2),
+(10, 'Mouthwash Shipment', 150, 3),
+(9, 'Toothpaste Refill', 120, 4),
+(4, 'Glove Supply Order', 300, 5),
+(3, 'Mask Restock', 250, 6),
+(2, 'Sanitizer Delivery', 180, 7),
+(1, 'Cotton Rolls Order', 220, 8),
+(8, 'Syringes Batch', 140, 9),
+(7, 'Wipes Replenishment', 160, 10);
+
+INSERT INTO [Order] (EstimatedTimeOfArrival, Status) VALUES
+('2026-04-01', 0),
+('2026-04-03', 0),
+('2026-04-02', 0),
+('2026-04-05', 0),
+('2026-04-04', 0),
+('2026-04-06', 0),
+('2026-04-07', 0),
+('2026-04-08', 0),
+('2026-04-09', 0),
+('2026-04-10', 0);

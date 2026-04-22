@@ -125,16 +125,16 @@ namespace StockManagementApp.Areas.Identity.Data
 
             var OrderItem = new OrderItem[]
             {
-                new OrderItem{ItemID = 3,  OrderName="Restock Toothbrushes", QuantityOrdered = 100},
-                new OrderItem{ItemID = 6,  OrderName="Floss Bulk Order", QuantityOrdered = 00},
-                new OrderItem{ItemID = 10, OrderName = "Mouthwash Shipment", QuantityOrdered = 150},
-                new OrderItem{ItemID = 9, OrderName = "Toothpaste Refill", QuantityOrdered = 120},
-                new OrderItem{ItemID = 4, OrderName = "Glove Supply Order", QuantityOrdered = 300},
-                new OrderItem{ItemID = 3, OrderName = "Mask Restock", QuantityOrdered = 250},
-                new OrderItem{ItemID = 2, OrderName = "Sanitizer Delivery", QuantityOrdered = 180},
-                new OrderItem{ItemID = 1, OrderName = "Cotton Rolls Order", QuantityOrdered = 220},
-                new OrderItem{ItemID = 8, OrderName = "Syringes Batch", QuantityOrdered = 140},
-                new OrderItem{ItemID = 7, OrderName = "Wipes Replenishment", QuantityOrdered = 160}
+                new OrderItem{ItemID = 3,  OrderName="Restock Toothbrushes", QuantityOrdered = 100,OrderID = 1},
+                new OrderItem{ItemID = 6,  OrderName="Floss Bulk Order", QuantityOrdered = 100,OrderID = 2},
+                new OrderItem{ItemID = 10, OrderName = "Mouthwash Shipment", QuantityOrdered = 150,OrderID = 3},
+                new OrderItem{ItemID = 9, OrderName = "Toothpaste Refill", QuantityOrdered = 120,OrderID = 4},
+                new OrderItem{ItemID = 4, OrderName = "Glove Supply Order", QuantityOrdered = 300,OrderID = 5},
+                new OrderItem{ItemID = 3, OrderName = "Mask Restock", QuantityOrdered = 250,OrderID = 6},
+                new OrderItem{ItemID = 2, OrderName = "Sanitizer Delivery", QuantityOrdered = 180,OrderID = 7},
+                new OrderItem{ItemID = 1, OrderName = "Cotton Rolls Order", QuantityOrdered = 220,OrderID = 8},
+                new OrderItem{ItemID = 8, OrderName = "Syringes Batch", QuantityOrdered = 140,OrderID = 9},
+                new OrderItem{ItemID = 7, OrderName = "Wipes Replenishment", QuantityOrdered = 160,OrderID = 10}
             };
 
             foreach (OrderItem OI in OrderItem)

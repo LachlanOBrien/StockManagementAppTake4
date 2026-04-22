@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockManagementApp.Areas.Identity.Data;
 
@@ -11,9 +12,11 @@ using StockManagementApp.Areas.Identity.Data;
 namespace StockManagementApp.Migrations
 {
     [DbContext(typeof(StockManagementAppContext))]
-    partial class StockManagementAppContextModelSnapshot : ModelSnapshot
+    [Migration("20260422230559_TEstToMakePRogramWork")]
+    partial class TEstToMakePRogramWork
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -363,17 +366,17 @@ namespace StockManagementApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderItemID"));
 
-                    b.Property<int>("ItemID")
+                    b.Property<int?>("ItemID")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderID")
+                    b.Property<int?>("OrderID")
                         .HasColumnType("int");
 
                     b.Property<string>("OrderName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("QuantityOrdered")
+                    b.Property<int?>("QuantityOrdered")
                         .HasColumnType("int");
 
                     b.HasKey("OrderItemID");
@@ -521,14 +524,12 @@ namespace StockManagementApp.Migrations
                     b.HasOne("StockManagementApp.Models.Item", "Item")
                         .WithMany("OrderItems")
                         .HasForeignKey("ItemID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("StockManagementApp.Models.Order", "Order")
                         .WithMany("OrderItem")
                         .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Item");
 

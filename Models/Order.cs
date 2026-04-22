@@ -46,6 +46,6 @@ namespace StockManagementApp.Models
                 }
             }
         }
-        public ICollection<OrderItem>? OrderItem { get; set; } = new List<OrderItem>();
+        public ICollection<OrderItem>? OrderItem { get; set; }
     }
 }
