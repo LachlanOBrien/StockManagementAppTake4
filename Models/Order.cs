@@ -8,6 +8,7 @@ namespace StockManagementApp.Models
 
         [Display(Name = "OrderID")]
         public int OrderID { get; set; }
+        public string OrderName { get; set; }
 
         [Display(Name = "Estimated Time Of Arrival")]
         [Required(ErrorMessage = "This Field cannot be empty")]

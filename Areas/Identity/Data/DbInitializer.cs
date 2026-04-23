@@ -105,16 +105,16 @@ namespace StockManagementApp.Areas.Identity.Data
 
             var Order = new Order[]
             {
-                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-01"), Status = 0},
-                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-03"), Status = 0},
-                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-02"), Status = 0},
-                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-05"), Status = 0},
-                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-04"), Status = 0},
-                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-06"), Status = 0},
-                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-07"), Status = 0},
-                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-08"), Status = 0 },
-                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-09"), Status = 0},
-                new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-10"), Status = 0}
+    new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-01"), Status = 0, OrderName="Restock Toothbrushes"},
+    new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-03"), Status = 0, OrderName="Floss Bulk Order"},
+    new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-02"), Status = 0, OrderName="Mouthwash Shipment"},
+    new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-05"), Status = 0, OrderName="Toothpaste Refill"},
+    new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-04"), Status = 0, OrderName="Glove Supply Order"},
+    new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-06"), Status = 0, OrderName="Mask Restock"},
+    new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-07"), Status = 0, OrderName="Sanitizer Delivery"},
+    new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-08"), Status = 0, OrderName="Cotton Rolls Order"},
+    new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-09"), Status = 0, OrderName="Syringes Batch"},
+    new Order{EstimatedTimeOfArrival = DateTime.Parse("2026-04-10"), Status = 0, OrderName="Wipes Replenishment"}
             };
 
             foreach (Order O in Order)
@@ -125,16 +125,16 @@ namespace StockManagementApp.Areas.Identity.Data
 
             var OrderItem = new OrderItem[]
             {
-                new OrderItem{ItemID = 3,  OrderName="Restock Toothbrushes", QuantityOrdered = 100,OrderID = 1},
-                new OrderItem{ItemID = 6,  OrderName="Floss Bulk Order", QuantityOrdered = 100,OrderID = 2},
-                new OrderItem{ItemID = 10, OrderName = "Mouthwash Shipment", QuantityOrdered = 150,OrderID = 3},
-                new OrderItem{ItemID = 9, OrderName = "Toothpaste Refill", QuantityOrdered = 120,OrderID = 4},
-                new OrderItem{ItemID = 4, OrderName = "Glove Supply Order", QuantityOrdered = 300,OrderID = 5},
-                new OrderItem{ItemID = 3, OrderName = "Mask Restock", QuantityOrdered = 250,OrderID = 6},
-                new OrderItem{ItemID = 2, OrderName = "Sanitizer Delivery", QuantityOrdered = 180,OrderID = 7},
-                new OrderItem{ItemID = 1, OrderName = "Cotton Rolls Order", QuantityOrdered = 220,OrderID = 8},
-                new OrderItem{ItemID = 8, OrderName = "Syringes Batch", QuantityOrdered = 140,OrderID = 9},
-                new OrderItem{ItemID = 7, OrderName = "Wipes Replenishment", QuantityOrdered = 160,OrderID = 10}
+    new OrderItem{ItemID = 3, QuantityOrdered = 100, OrderID = 1},
+    new OrderItem{ItemID = 6, QuantityOrdered = 100, OrderID = 2},
+                new OrderItem{ItemID = 10, QuantityOrdered = 150, OrderID = 3},
+                new OrderItem{ItemID = 9, QuantityOrdered = 120, OrderID = 4},
+                new OrderItem{ItemID = 4, QuantityOrdered = 300, OrderID = 5},
+                new OrderItem{ItemID = 3, QuantityOrdered = 250, OrderID = 6},
+                new OrderItem{ItemID = 2, QuantityOrdered = 180, OrderID = 7},
+                new OrderItem{ItemID = 1, QuantityOrdered = 220, OrderID = 8},
+                new OrderItem{ItemID = 8, QuantityOrdered = 140, OrderID = 9},
+                new OrderItem{ItemID = 7, QuantityOrdered = 160, OrderID = 10}
             };
 
             foreach (OrderItem OI in OrderItem)

@@ -49,11 +49,6 @@ namespace StockManagementApp.Controllers
         // GET: OrderItems/Create
         public IActionResult Create()
         {
-            if (_context.Order == null)
-            {
-                return Problem("Orders DbSet is null.");
-            }
-
             ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemName");
             ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderName");
             return View();
@@ -64,7 +59,7 @@ namespace StockManagementApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderItemID,OrderID,OrderName,ItemID,QuantityOrdered")] OrderItem orderItem)
+        public async Task<IActionResult> Create([Bind("OrderItemID,OrderID,ItemID,QuantityOrdered")] OrderItem orderItem)
         {
             if (ModelState.IsValid)
             {
@@ -72,8 +67,8 @@ namespace StockManagementApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemName", orderItem.ItemID);
-            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderName", orderItem.OrderID);
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", orderItem.ItemID);
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderID", orderItem.OrderID);
             return View(orderItem);
         }
 
@@ -90,8 +85,8 @@ namespace StockManagementApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemName", orderItem.ItemID);
-            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderName", orderItem.OrderID);
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", orderItem.ItemID);
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderID", orderItem.OrderID);
             return View(orderItem);
         }
 
@@ -100,7 +95,7 @@ namespace StockManagementApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderItemID,OrderID,OrderName,ItemID,QuantityOrdered")] OrderItem orderItem)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderItemID,OrderID,ItemID,QuantityOrdered")] OrderItem orderItem)
         {
             if (id != orderItem.OrderItemID)
             {
@@ -127,8 +122,8 @@ namespace StockManagementApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemName", orderItem.ItemID);
-            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderName", orderItem.OrderID);
+            ViewData["ItemID"] = new SelectList(_context.Item, "ItemID", "ItemDescription", orderItem.ItemID);
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderID", orderItem.OrderID);
             return View(orderItem);
         }
 

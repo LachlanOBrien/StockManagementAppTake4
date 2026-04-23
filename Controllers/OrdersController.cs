@@ -19,6 +19,20 @@ namespace StockManagementApp.Controllers
             _context = context;
         }
 
+        // Populate status list for views that need it
+        private void PopulateStatusList(string? selected = null)
+        {
+            var items = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "Pending", Text = "Pending" },
+                new SelectListItem { Value = "Shipped", Text = "Shipped" },
+                new SelectListItem { Value = "Delivered", Text = "Delivered" }, 
+                new SelectListItem { Value = "Cancelled", Text = "Cancelled" }
+            };
+
+            ViewBag.StatusList = items;
+        }
+
         // GET: Orders
         public async Task<IActionResult> Index()
         {
@@ -46,6 +60,7 @@ namespace StockManagementApp.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
+            PopulateStatusList();
             return View();
         }
 
@@ -54,7 +69,7 @@ namespace StockManagementApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderID,EstimatedTimeOfArrival,Status")] Order order)
+        public async Task<IActionResult> Create([Bind("OrderID,OrderName,EstimatedTimeOfArrival,Status")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +77,9 @@ namespace StockManagementApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            // repopulate status list before returning the view so the SelectList constructor
+            // in the Razor view receives a non-null items collection.
+            PopulateStatusList(order?.Status.ToString());
             return View(order);
         }
 
@@ -78,6 +96,7 @@ namespace StockManagementApp.Controllers
             {
                 return NotFound();
             }
+            PopulateStatusList(order?.Status.ToString());
             return View(order);
         }
 
@@ -86,7 +105,7 @@ namespace StockManagementApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderID,EstimatedTimeOfArrival,Status")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderID,OrderName,EstimatedTimeOfArrival,Status")] Order order)
         {
             if (id != order.OrderID)
             {
@@ -113,6 +132,7 @@ namespace StockManagementApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            PopulateStatusList(order?.Status.ToString());
             return View(order);
         }
 
