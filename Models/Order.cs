@@ -29,7 +29,7 @@ namespace StockManagementApp.Models
         }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (EstimatedTimeOfArrival <= DateTime.Now)
+            if (EstimatedTimeOfArrival <= DateTime.Now.AddDays(-1))
             {
                 yield return new ValidationResult(
                     "Estimated Time Of Arrival cannot be in the past.",

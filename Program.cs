@@ -18,7 +18,8 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<StockManagementAppContext>();
-        DbInitializer.Initialize(context);
+        var userManager = services.GetRequiredService<UserManager<StockManagementAppUser>>();
+        DbInitializer.Initialize(context, userManager);
     }
     catch (Exception ex)
     {

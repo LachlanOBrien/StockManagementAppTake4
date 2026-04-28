@@ -1,14 +1,16 @@
-﻿using StockManagementApp.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using StockManagementApp.Models;
 using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace StockManagementApp.Areas.Identity.Data
 {
     public class DbInitializer
     {
-        public static void Initialize(StockManagementAppContext context)
+        public static void Initialize(StockManagementAppContext context, UserManager<StockManagementAppUser> userManager)
         {
+
             // Apply any pending migrations and create the database if it does not exist.
             // Using Migrate() is preferred when the project uses EF Core migrations.
             context.Database.Migrate();
@@ -18,6 +20,16 @@ namespace StockManagementApp.Areas.Identity.Data
             {
                 return;   // DB has been seeded
             }
+
+            var Users = new StockManagementAppUser[]
+            {
+                new StockManagementAppUser { UserName="Admin1",PasswordHash="Admin1Password",Email="admin1@example.com", FirstName="Alice", LastName="Smith", PhoneNumber=0215550001, IsAdmin=true},
+            };
+            foreach (StockManagementAppUser user in Users)
+            {
+                context.Users.Add(user);
+            }
+            context.SaveChanges();
 
             var Supplier = new Supplier[]
             {
