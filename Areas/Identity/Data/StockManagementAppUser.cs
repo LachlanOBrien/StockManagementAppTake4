@@ -12,7 +12,9 @@ public class StockManagementAppUser : IdentityUser
     public int UserID { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public int PhoneNumber { get; set; }
+    // Use the base IdentityUser.PhoneNumber (string). Keep this property as string
+    // so it doesn't conflict with the base class.
+    public string PhoneNumber { get; set; }
     public bool IsAdmin { get; set; }
 }
 

@@ -55,7 +55,7 @@ namespace StockManagementApp.Areas.Identity.Data
                     FirstName = "School",
                     LastName = "Staff",
                     IsAdmin = true,
-                    PhoneNumber = 0215550000
+                    PhoneNumber = "0215550000"
 
                 };
 
@@ -64,9 +64,26 @@ namespace StockManagementApp.Areas.Identity.Data
 
             }
 
-            // Apply any pending migrations and create the database if it does not exist.
-            // Using Migrate() is preferred when the project uses EF Core migrations.
-            context.Database.Migrate();
+            // Ensure an explicit entry exists in AspNetUserRoles linking the user and role
+            // (sometimes useful when inspecting the DB directly or when seeding without relying
+            // solely on UserManager internals)
+            var staffRole = roleManager.FindByNameAsync("Staff").Result;
+            if (staffRole != null && staff != null)
+            {
+                var userRoleExists = context.Set<IdentityUserRole<string>>()
+                    .Any(ur => ur.UserId == staff.Id && ur.RoleId == staffRole.Id);
+
+                if (!userRoleExists)
+                {
+                    context.Set<IdentityUserRole<string>>().Add(new IdentityUserRole<string>
+                    {
+                        UserId = staff.Id,
+                        RoleId = staffRole.Id
+                    });
+                    context.SaveChanges();
+                }
+            }
+
 
             // Look for any products.
             if (context.Item.Any())

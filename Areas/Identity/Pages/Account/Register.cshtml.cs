@@ -122,7 +122,7 @@ namespace StockManagementApp.Areas.Identity.Pages.Account
                 var user = CreateUser();
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
-                user.PhoneNumber = Input.PhoneNumber;
+                user.PhoneNumber = Input.PhoneNumber.;
                 user.IsAdmin = false;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);

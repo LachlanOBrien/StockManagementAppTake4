@@ -6,7 +6,7 @@ var connectionString = builder.Configuration.GetConnectionString("StockManagemen
 
 builder.Services.AddDbContext<StockManagementAppContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<StockManagementAppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<StockManagementAppContext>()
+builder.Services.AddDefaultIdentity<StockManagementAppUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StockManagementAppContext>();
 
@@ -42,6 +42,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
