@@ -8,18 +8,10 @@ namespace StockManagementApp.Areas.Identity.Data
 {
     public class DbInitializer
     {
-        public static void Initialize(StockManagementAppContext context, UserManager<StockManagementAppUser> userManager)
+        public static void Initialize(StockManagementAppContext context, UserManager<StockManagementAppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
 
-            // Apply any pending migrations and create the database if it does not exist.
-            // Using Migrate() is preferred when the project uses EF Core migrations.
-            context.Database.Migrate();
 
-            // Look for any products.
-            if (context.Item.Any())
-            {
-                return;   // DB has been seeded
-            }
 
             //var Users = new StockManagementAppUser[]
             //{
@@ -40,15 +32,15 @@ namespace StockManagementApp.Areas.Identity.Data
             //    userManager.CreateAsync(staff, "Admin1Password").Wait();
             //}
 
-            //string[] roles = { "Staff" };
+            string[] roles = { "Staff" };
 
-            //foreach (var role in roles)
-            //{
-            //    if (!roleManager.RoleExistsAsync(role).Result)
-            //    {
-            //        roleManager.CreateAsync(new IdentityRole(role)).Wait();
-            //    }
-            //}
+            foreach (var role in roles)
+            {
+                if (!roleManager.RoleExistsAsync(role).Result)
+                {
+                    roleManager.CreateAsync(new IdentityRole(role)).Wait();
+                }
+            }
 
             // ================= STAFF USER =================
             var staff = userManager.FindByEmailAsync("staff@test.com").Result;
@@ -68,11 +60,19 @@ namespace StockManagementApp.Areas.Identity.Data
                 };
 
                 userManager.CreateAsync(staff, "Staff123!").Wait();
-                //userManager.AddToRoleAsync(staff, "Staff").Wait();
+                userManager.AddToRoleAsync(staff, "Staff").Wait();
 
             }
 
+            // Apply any pending migrations and create the database if it does not exist.
+            // Using Migrate() is preferred when the project uses EF Core migrations.
+            context.Database.Migrate();
 
+            // Look for any products.
+            if (context.Item.Any())
+            {
+                return;   // DB has been seeded
+            }
             var Supplier = new Supplier[]
             {
                 new Supplier { SupplierName="Supplier One", Email="Supplier1@supplier1.co.nz", PhoneNumber=0215551001, Address="12 Industry Lane, Auckland"},

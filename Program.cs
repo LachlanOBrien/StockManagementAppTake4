@@ -6,7 +6,9 @@ var connectionString = builder.Configuration.GetConnectionString("StockManagemen
 
 builder.Services.AddDbContext<StockManagementAppContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<StockManagementAppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<StockManagementAppContext>();
+builder.Services.AddDefaultIdentity<StockManagementAppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<StockManagementAppContext>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<StockManagementAppContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -19,7 +21,8 @@ using (var scope = app.Services.CreateScope())
     {
         var context = services.GetRequiredService<StockManagementAppContext>();
         var userManager = services.GetRequiredService<UserManager<StockManagementAppUser>>();
-        DbInitializer.Initialize(context, userManager);
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        DbInitializer.Initialize(context, userManager, roleManager);
     }
     catch (Exception ex)
     {
