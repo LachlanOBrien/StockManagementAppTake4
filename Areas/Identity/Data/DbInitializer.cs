@@ -21,15 +21,57 @@ namespace StockManagementApp.Areas.Identity.Data
                 return;   // DB has been seeded
             }
 
-            var Users = new StockManagementAppUser[]
+            //var Users = new StockManagementAppUser[]
+            //{
+            //    new StockManagementAppUser { UserName="Admin1",PasswordHash="Admin1Password",Email="admin1@example.com", FirstName="Alice", LastName="Smith", PhoneNumber=0215550001, IsAdmin=true, EmailConfirmed=true},
+
+            //};
+            //foreach (StockManagementAppUser user in Users)
+            //{
+            //    context.Users.Add(user);
+            //}
+            //context.SaveChanges();
+            //userManager.CreateAsync(Users[0], "Admin1Password").Wait();
+
+            //var staff = userManager.FindByNameAsync("Admin1").Result;
+            //if (staff == null)
+            //{
+            //    staff = new StockManagementAppUser { UserName = "Admin1", Email = "admin1@example.com", FirstName = "Alice", LastName = "Smith",  IsAdmin = true, EmailConfirmed = true };
+            //    userManager.CreateAsync(staff, "Admin1Password").Wait();
+            //}
+
+            //string[] roles = { "Staff" };
+
+            //foreach (var role in roles)
+            //{
+            //    if (!roleManager.RoleExistsAsync(role).Result)
+            //    {
+            //        roleManager.CreateAsync(new IdentityRole(role)).Wait();
+            //    }
+            //}
+
+            // ================= STAFF USER =================
+            var staff = userManager.FindByEmailAsync("staff@test.com").Result;
+
+            if (staff == null)
             {
-                new StockManagementAppUser { UserName="Admin1",PasswordHash="Admin1Password",Email="admin1@example.com", FirstName="Alice", LastName="Smith", PhoneNumber=0215550001, IsAdmin=true},
-            };
-            foreach (StockManagementAppUser user in Users)
-            {
-                context.Users.Add(user);
+                staff = new StockManagementAppUser
+                {
+                    UserName = "staff@test.com",
+                    Email = "staff@test.com",
+                    EmailConfirmed = true,
+                    FirstName = "School",
+                    LastName = "Staff",
+                    IsAdmin = true,
+                    PhoneNumber = 0215550000
+
+                };
+
+                userManager.CreateAsync(staff, "Staff123!").Wait();
+                //userManager.AddToRoleAsync(staff, "Staff").Wait();
+
             }
-            context.SaveChanges();
+
 
             var Supplier = new Supplier[]
             {
